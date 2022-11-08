@@ -63,7 +63,7 @@ async function getReadableSize (path) {
  * @returns {string}
  */
 function terminalUrl (title, link) {
-  return `🔗  ${chalk.green(terminalLink(title, link))}`
+  return `🔗  ${chalk.green(title)} `
 }
 
 module.exports = {

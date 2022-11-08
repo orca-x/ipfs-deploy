@@ -1,7 +1,7 @@
 'use strict'
 
 // @ts-ignore
-const dnslink = require('dnslink-cloudflare')
+const dnslink = require('@orca-x/dnslink-cloudflare')
 const isEmpty = require('lodash.isempty')
 
 /**
@@ -23,7 +23,7 @@ class Cloudflare {
     }
 
     if (isEmpty(apiKey)) {
-      this.api = { token: apiToken }
+      this.api = { email: apiEmail, token: apiToken }
     } else {
       this.api = {
         email: apiEmail,
@@ -31,7 +31,9 @@ class Cloudflare {
       }
     }
 
-    this.opts = { record, zone }
+    const t_record = record === "@" ? zone : `${record}.${zone}`
+
+    this.opts = { record: t_record, zone }
   }
 
   /**
@@ -44,11 +46,11 @@ class Cloudflare {
       link: `/ipfs/${cid}`
     }
 
-    const content = await dnslink(this.api, opts)
+    await dnslink(this.api, opts)
 
     return {
       record: opts.record,
-      value: content
+      value: `dnslink=${opts.link}`,
     }
   }
 

@@ -81,7 +81,7 @@ async function dnsLink (services, cid, logger) {
     logger.info(`🔄  Updated DNS TXT ${chalk.whiteBright(record)} to:`)
     logger.info(`🔗  ${chalk.whiteBright(value)}`)
 
-    hostnames.push(record.split('.').slice(1).join('.'))
+    hostnames.push(record)
   }
 
   return hostnames
